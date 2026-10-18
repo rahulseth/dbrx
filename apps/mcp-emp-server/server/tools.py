@@ -64,6 +64,23 @@ def load_tools(mcp_server):
         }
 
     @mcp_server.tool
+    def get_employees(limit: int = 10) -> str:
+        """Fetch a limited number of employee records."""
+        if limit < 1 or limit > 100:
+            return "Limit must be between 1 and 100."
+
+        # Execute this query using your app's
+        # Databricks SQL Warehouse connection:
+        query = f"""
+            SELECT employee_id, employee_name, department, salary
+            FROM workspace.employee_db.employees
+            LIMIT {limit}
+        """
+
+        # TODO: execute query and return the actual rows
+        return query
+    
+    @mcp_server.tool
     def get_current_user() -> dict:
         """
         Get information about the current authenticated user.
